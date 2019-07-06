@@ -55,6 +55,7 @@ if [ ! -d repos ];then
 fi
 
 date +%FT%T
+echo "Start..."
 
 cd repos
 for line in $(cat ../config);do
@@ -111,3 +112,5 @@ for line in $(cat ../config);do
         pwd
     fi
 done
+
+echo "Over."
