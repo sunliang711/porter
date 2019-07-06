@@ -58,8 +58,14 @@ date +%FT%T
 echo "Start..."
 
 cd repos
-for line in $(cat ../config);do
+# for line in "$(cat ../config)";do
+while read line;do
+    if [ -z "$line" ];then
+        echo "empty line"
+        continue
+    fi
     if ! echo $line | grep -q '^[[:blank:]]*#';then
+        echo "${red}Get line$reset: $line..."
         src=$(echo $line | awk -F'|' '{print $1}')
         dest=$(echo $line | awk -F'|' '{print $2}')
         echo "src: $src"
@@ -88,12 +94,20 @@ for line in $(cat ../config);do
         echo -n "pwd:"
         pwd
     fi
-done
+done<../config
 
-for line in $(cat ../config);do
+# for line in $(cat ../config);do
+while read line;do
+    if [ -z "$line" ];then
+        echo "empty line"
+        continue
+    fi
     if ! echo $line | grep -q '^[[:blank:]]*#';then
+        echo "${red}Get line$reset: $line..."
         src=$(echo $line | awk -F'|' '{print $1}')
         dest=$(echo $line | awk -F'|' '{print $2}')
+        echo "src: $src"
+        echo "dest: $dest"
 
         name="$(echo ${src##*/})"
         cd "$name"
@@ -111,6 +125,6 @@ for line in $(cat ../config);do
         echo -n "pwd:"
         pwd
     fi
-done
+done<../config
 
 echo "Over."
