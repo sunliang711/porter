@@ -54,6 +54,8 @@ if [ ! -d repos ];then
     mkdir repos
 fi
 
+date +%FT%T
+
 cd repos
 for line in $(cat ../config);do
     if ! echo $line | grep -q '^[[:blank:]]*#';then
